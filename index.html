@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saludo Personalizado</title> 
+<script src="https://cdn.tailwindcss.com"></script> <!-- TailwindCSS -->
+</head>
+<!-- Estructura base -->
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
+    <!-- Contenedor principal -->
+    <div class="w-full max-w-md">
+        <!-- Tarjeta -->
+        <div class="bg-white rounded-xl shadow-xl overflow-hidden p-8">
+            <!-- Titulo principal -->
+            <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">Generador de Saludos</h1>
+            <!-- Mensaje -->
+            <p class="text-gray-600 text-center mb-8">¡Ingresa tu nombre y recibe un cálido saludo personalizado!</p>
+            
+            <!-- Texto arriba de la textbox -->
+            <div class="space-y-4">
+                <div>
+                    <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Tu nombre</label>
+                    <!-- Ingresar nombre -->
+                    <input
+                        type="text" 
+                        id="nombre" 
+                        placeholder="Ejemplo: Carlos" 
+                        class="input-focus w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-500"
+                    >
+                </div>
+                
+                <!-- Boton "Salular" -->
+                <button 
+                    id="btnSaludar" 
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+                >
+                    Saludar
+                </button>
+            </div>
+            
+            <!-- Mensaje de saludo -->
+            <div 
+                id="contenedorSaludo" 
+                class="mt-8 p-4 rounded-lg bg-indigo-50 border border-indigo-100 hidden"
+            >
+            </div>
+        </div>
+    </div>
+
+    <script> // JS
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnSaludar = document.getElementById('btnSaludar');
+            const inputNombre = document.getElementById('nombre');
+            const contenedorSaludo = document.getElementById('contenedorSaludo');
+            
+            // Llamar a la constante "nombre" al dar click
+            btnSaludar.addEventListener('click', function() {
+                const nombre = inputNombre.value.trim();
+                
+                if (nombre) {
+                    // Saludo con animacion
+                    contenedorSaludo.innerHTML = `
+                        <p class="text-indigo-800 text-xl fade-in">¡Hola, <span class="font-bold">${nombre}</span>!</p>
+                        <p class="text-indigo-600 mt-2 fade-in" style="animation-delay: 0.2s">Es un placer conocerte 👋</p>
+                    `;
+                    
+                    // Mostrar contenedor
+                    contenedorSaludo.classList.remove('hidden');
+                    
+                    // Limpiar el input
+                    inputNombre.value = '';
+                    inputNombre.focus();
+                } else {
+                    // Mensaje de error si el input esta vacio
+                    contenedorSaludo.innerHTML = `
+                        <p class="text-red-500 fade-in">Por favor, ingresa tu nombre</p>
+                    `;
+                    contenedorSaludo.classList.remove('hidden');
+                }
+            });
+            
+            // Responder si se presiona la tacla "Enter"
+            inputNombre.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    btnSaludar.click();
+                }
+            });
+        });
+    </script>
+  </body>
+</html>
